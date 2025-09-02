@@ -10,7 +10,6 @@ import {
   ExternalLink, 
   Mail, 
   Linkedin, 
-  Twitter,
   ChevronRight,
   Sparkles,
   Zap,
