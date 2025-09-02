@@ -36,6 +36,74 @@ export default function PersonalWebsite() {
   const [hoveredTech, setHoveredTech] = useState<number | null>(null);
   const [socialLinks, setSocialLinks] = useState<{ mail?: string; linkedin?: string; github?: string }>({});
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [lang, setLang] = useState<'en' | 'tr'>('en');
+  const directMail = 'mailto:samedq.frkan@gmail.com';
+
+  const translations: Record<'en' | 'tr', Record<string, string>> = {
+    en: {
+      nav_about: 'About',
+      nav_tech: 'Technologies',
+      nav_projects: 'Projects',
+      nav_download_cv: 'Download CV',
+      hero_title: 'Creative Developer',
+      hero_desc:
+        'Passionate software developer specializing in machine learning, data science, and full-stack development. I create innovative AI-powered solutions that bridge the gap between cutting-edge technology and practical applications.',
+      btn_get_in_touch: 'Get In Touch',
+      btn_view_work: 'View Work',
+      tech_title: 'Technologies & Skills',
+      tech_subtitle: 'Crafting digital experiences with cutting-edge technologies and creative solutions',
+      projects_title: 'Featured Projects',
+      projects_subtitle:
+        'Innovative solutions combining AI, machine learning, and modern web technologies',
+      technologies_used: 'Technologies Used',
+      learn_more: 'Learn More',
+      modal_view_repo: 'View Repository',
+      modal_close: 'Close',
+      footer_title: "Let's Build Something Amazing Together",
+      footer_desc:
+        'Always excited to collaborate on innovative projects and explore new technological frontiers.',
+      footer_ps: 'PS: This website is developed by AI without typing not even single line of code.',
+    },
+    tr: {
+      nav_about: 'Hakkımda',
+      nav_tech: 'Teknolojiler',
+      nav_projects: 'Projeler',
+      nav_download_cv: 'CV İndir',
+      hero_title: 'Yaratıcı Geliştirici',
+      hero_desc:
+        'Makine öğrenimi, veri bilimi ve full-stack geliştirme alanlarında uzman tutkulu bir yazılım geliştiricisiyim. En yeni teknolojiler ile pratik uygulamalar arasındaki boşluğu kapatan yenilikçi, yapay zekâ destekli çözümler üretirim.',
+      btn_get_in_touch: 'İletişime Geç',
+      btn_view_work: 'Projeleri Gör',
+      tech_title: 'Teknolojiler ve Yetenekler',
+      tech_subtitle: 'Öncü teknolojiler ve yaratıcı çözümlerle dijital deneyimler üretiyorum',
+      projects_title: 'Öne Çıkan Projeler',
+      projects_subtitle:
+        'Yapay zekâ, makine öğrenimi ve modern web teknolojilerini birleştiren çözümler',
+      technologies_used: 'Kullanılan Teknolojiler',
+      learn_more: 'Detayları Gör',
+      modal_view_repo: 'Depoyu Görüntüle',
+      modal_close: 'Kapat',
+      footer_title: 'Birlikte Harika Bir Şey İnşa Edelim',
+      footer_desc:
+        'Yenilikçi projelerde iş birliği yapmaktan ve yeni teknolojik ufukları keşfetmekten heyecan duyarım.',
+      footer_ps: 'Not: Bu site, tek satır kod yazılmadan tamamen yapay zekâ tarafından geliştirildi.',
+    },
+  };
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('lang');
+      if (saved === 'en' || saved === 'tr') {
+        setLang(saved);
+      }
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('lang', lang);
+    } catch {}
+  }, [lang]);
 
   useEffect(() => {
     // Auto-close mobile menu when viewport is md and up
@@ -196,31 +264,43 @@ export default function PersonalWebsite() {
         </div>
         
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
           <button
             onClick={() => scrollToSection('about')}
             className="hover:text-cyan-400 transition-colors duration-300 font-medium"
           >
-            About
+            {translations[lang].nav_about}
           </button>
           <button
             onClick={() => scrollToSection('tech')}
             className="hover:text-cyan-400 transition-colors duration-300 font-medium"
           >
-            Technologies
+            {translations[lang].nav_tech}
           </button>
           <button
             onClick={() => scrollToSection('projects')}
             className="hover:text-cyan-400 transition-colors duration-300 font-medium"
           >
-            Projects
+            {translations[lang].nav_projects}
           </button>
+          <div className="flex items-center rounded-xl overflow-hidden border border-white/10">
+            <button
+              type="button"
+              onClick={() => setLang('tr')}
+              className={`px-3 py-2 text-sm ${lang === 'tr' ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10'}`}
+            >TR</button>
+            <button
+              type="button"
+              onClick={() => setLang('en')}
+              className={`px-3 py-2 text-sm ${lang === 'en' ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10'}`}
+            >EN</button>
+          </div>
           <a 
             href="/CV.pdf" 
             download="Samed_Furkan_DEMIR_CV.pdf"
             className="bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-cyan-400 hover:to-purple-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25 font-medium"
           >
-            Download CV
+            {translations[lang].nav_download_cv}
           </a>
         </div>
 
@@ -242,27 +322,39 @@ export default function PersonalWebsite() {
               onClick={() => scrollToSection('about')}
               className="text-2xl font-medium hover:text-cyan-400 transition-colors duration-300"
             >
-              About
+              {translations[lang].nav_about}
             </button>
             <button
               onClick={() => scrollToSection('tech')}
               className="text-2xl font-medium hover:text-cyan-400 transition-colors duration-300"
             >
-              Technologies
+              {translations[lang].nav_tech}
             </button>
             <button
               onClick={() => scrollToSection('projects')}
               className="text-2xl font-medium hover:text-cyan-400 transition-colors duration-300"
             >
-              Projects
+              {translations[lang].nav_projects}
             </button>
+            <div className="flex items-center rounded-xl overflow-hidden border border-white/10">
+              <button
+                type="button"
+                onClick={() => setLang('tr')}
+                className={`px-4 py-2 text-lg ${lang === 'tr' ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10'}`}
+              >TR</button>
+              <button
+                type="button"
+                onClick={() => setLang('en')}
+                className={`px-4 py-2 text-lg ${lang === 'en' ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10'}`}
+              >EN</button>
+            </div>
             <a 
               href="/CV.pdf" 
               download="Samed_Furkan_DEMIR_CV.pdf"
               onClick={() => setMobileMenuOpen(false)}
               className="bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-8 py-4 rounded-xl font-medium text-xl"
             >
-              Download CV
+              {translations[lang].nav_download_cv}
             </a>
           </div>
         </div>
@@ -288,29 +380,22 @@ export default function PersonalWebsite() {
           
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
             <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Creative Developer
+              {translations[lang].hero_title}
             </span>
           </h2>
           
           <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
-            Passionate software developer specializing in <span className="text-cyan-400 font-semibold">machine learning</span>, 
-            <span className="text-purple-400 font-semibold"> data science</span>, and 
-            <span className="text-pink-400 font-semibold"> full-stack development</span>. 
-            I create innovative AI-powered solutions that bridge the gap between cutting-edge technology and practical applications.
+            {translations[lang].hero_desc}
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mt-8 sm:mt-12 px-4">
             <button
               type="button"
-              onClick={() => {
-                if (socialLinks.mail) {
-                  window.location.href = socialLinks.mail;
-                }
-              }}
+              onClick={() => { window.location.href = directMail; }}
               className="group flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-purple-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl hover:from-cyan-400 hover:to-purple-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-cyan-500/25 w-full sm:w-auto"
             >
               <Mail size={20} />
-              <span className="font-medium">Get In Touch</span>
+              <span className="font-medium">{translations[lang].btn_get_in_touch}</span>
               <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </button>
             <button
@@ -319,7 +404,7 @@ export default function PersonalWebsite() {
               className="flex items-center justify-center gap-2 border border-slate-600 hover:border-cyan-400 px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-300 hover:bg-cyan-400/10 backdrop-blur-sm w-full sm:w-auto"
             >
               <Github size={20} />
-              <span className="font-medium">View Work</span>
+              <span className="font-medium">{translations[lang].btn_view_work}</span>
             </button>
           </div>
         </div>
@@ -331,11 +416,11 @@ export default function PersonalWebsite() {
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
               <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                Technologies & Skills
+                {translations[lang].tech_title}
               </span>
             </h2>
             <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto px-4">
-              Crafting digital experiences with cutting-edge technologies and creative solutions
+              {translations[lang].tech_subtitle}
             </p>
           </div>
 
@@ -376,11 +461,11 @@ export default function PersonalWebsite() {
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
               <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Featured Projects
+                {translations[lang].projects_title}
               </span>
             </h2>
             <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto px-4">
-              Innovative solutions combining AI, machine learning, and modern web technologies
+              {translations[lang].projects_subtitle}
             </p>
           </div>
 
@@ -424,7 +509,7 @@ export default function PersonalWebsite() {
                   </p>
 
                   <div className="mb-4 sm:mb-6">
-                    <h4 className="text-xs sm:text-sm font-semibold text-cyan-400 mb-2 sm:mb-3 uppercase tracking-wider">Technologies Used</h4>
+                    <h4 className="text-xs sm:text-sm font-semibold text-cyan-400 mb-2 sm:mb-3 uppercase tracking-wider">{translations[lang].technologies_used}</h4>
                     <div className="flex flex-wrap gap-2">
                       {project.techs.map((tech, techIndex) => (
                         <span 
@@ -441,7 +526,7 @@ export default function PersonalWebsite() {
                     onClick={() => setModalContent({...project, index})}
                     className="group/btn flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors duration-300 font-medium text-sm sm:text-base"
                   >
-                    <span>Learn More</span>
+                    <span>{translations[lang].learn_more}</span>
                     <ChevronRight size={16} className="group-hover/btn:translate-x-1 transition-transform duration-300" />
                   </button>
                 </div>
@@ -487,13 +572,13 @@ export default function PersonalWebsite() {
                   className="flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-cyan-400 hover:to-purple-500 transition-all duration-300 font-medium shadow-lg"
                 >
                   <Github size={18} />
-                  View Repository
+                  {translations[lang].modal_view_repo}
                 </button>
                 <button
                   onClick={() => setModalContent(null)}
                   className="px-6 py-3 border border-slate-600 hover:border-cyan-400 rounded-xl transition-all duration-300 hover:bg-cyan-400/10 font-medium"
                 >
-                  Close
+                  {translations[lang].modal_close}
                 </button>
               </div>
             </div>
@@ -506,22 +591,17 @@ export default function PersonalWebsite() {
         <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 sm:py-12 text-center">
           <div className="mb-6 sm:mb-8">
             <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-3 sm:mb-4">
-              Let&apos;s Build Something Amazing Together
+              {translations[lang].footer_title}
             </h3>
             <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
-              Always excited to collaborate on innovative projects and explore new technological frontiers.
+              {translations[lang].footer_desc}
             </p>
           </div>
 
           <div className="flex justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
             <button
               type="button"
-              onClick={() => {
-                if (socialLinks.mail) {
-                  window.location.href = socialLinks.mail;
-                }
-              }}
-              disabled={!socialLinks.mail}
+              onClick={() => { window.location.href = directMail; }}
               className="p-3 sm:p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-400/50 rounded-2xl transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-cyan-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Mail size={20} className="sm:hidden text-cyan-400" />
@@ -551,7 +631,7 @@ export default function PersonalWebsite() {
             <p className="text-slate-500 text-xs sm:text-sm">
               © {new Date().getFullYear()} Samed Furkan DEMİR. Crafted with passion and innovation.
               <br />
-              PS: This website is developed by AI without typing not even single line of code.
+              {translations[lang].footer_ps}
             </p>
           </div>
         </div>
