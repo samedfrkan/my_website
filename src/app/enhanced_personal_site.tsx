@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, type ReactNode } from "react";
+import Image from "next/image";
 import { 
   Code, 
   Database, 
@@ -208,7 +209,13 @@ export default function PersonalWebsite() {
           <div className="mb-8 relative">
             <div className="w-48 h-48 mx-auto rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 p-1 shadow-2xl shadow-purple-500/25">
               <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center overflow-hidden">
-                <img src="/profile_pic.jpg" alt="Samed Furkan DEMİR" className="w-full h-full object-cover rounded-full" />
+                <Image 
+                  src="/profile_pic.jpg" 
+                  alt="Samed Furkan DEMİR" 
+                  width={192} 
+                  height={192} 
+                  className="w-full h-full object-cover rounded-full" 
+                />
               </div>
             </div>
             <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full blur-xl opacity-60 animate-pulse"></div>
@@ -436,7 +443,7 @@ export default function PersonalWebsite() {
         <div className="max-w-6xl mx-auto px-8 py-12 text-center">
           <div className="mb-8">
             <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-4">
-              Let's Build Something Amazing Together
+              Let&apos;s Build Something Amazing Together
             </h3>
             <p className="text-slate-400 max-w-2xl mx-auto">
               Always excited to collaborate on innovative projects and explore new technological frontiers.
