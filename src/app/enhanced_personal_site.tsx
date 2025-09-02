@@ -38,6 +38,15 @@ export default function PersonalWebsite() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    // Auto-close mobile menu when viewport is md and up
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    const handleChange = () => {
+      if (mediaQuery.matches) {
+        setMobileMenuOpen(false);
+      }
+    };
+    mediaQuery.addEventListener ? mediaQuery.addEventListener('change', handleChange) : mediaQuery.addListener(handleChange);
+
     const normalizeMail = (value: string) => {
       const trimmed = value.trim();
       return trimmed.startsWith("mailto:") ? trimmed : `mailto:${trimmed}`;
@@ -97,6 +106,9 @@ export default function PersonalWebsite() {
       .catch(() => {
         // ignore if file missing; keep icons non-clickable
       });
+    return () => {
+      mediaQuery.removeEventListener ? mediaQuery.removeEventListener('change', handleChange) : mediaQuery.removeListener(handleChange);
+    };
   }, []);
 
   const scrollToSection = (id: string) => {
@@ -223,8 +235,9 @@ export default function PersonalWebsite() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-16 z-40 bg-slate-950/95 backdrop-blur-xl">
-          <div className="flex flex-col items-center justify-center h-full space-y-8 text-center px-8">
+        <div className="md:hidden fixed inset-0 top-16 z-40">
+          <div className="absolute inset-0 bg-slate-950/95 backdrop-blur-xl" onClick={() => setMobileMenuOpen(false)}></div>
+          <div className="relative flex flex-col items-center justify-center h-full space-y-8 text-center px-8">
             <button
               onClick={() => scrollToSection('about')}
               className="text-2xl font-medium hover:text-cyan-400 transition-colors duration-300"
