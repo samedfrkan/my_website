@@ -273,29 +273,32 @@ export default function PersonalWebsite() {
             <Sparkles size={16} className="sm:hidden text-white" />
             <Sparkles size={20} className="hidden sm:block text-white" />
           </div>
-          <h1 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent hover:from-cyan-300 hover:via-purple-300 hover:to-pink-300 transition-all duration-300 cursor-pointer"
+          >
             <span className="hidden sm:inline">Samed Furkan DEMİR</span>
             <span className="sm:hidden">S. F. DEMİR</span>
-          </h1>
+          </button>
         </div>
         
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
           <button
             onClick={() => scrollToSection('about')}
-            className="hover:text-cyan-400 transition-colors duration-300 font-medium"
+            className="hover:text-cyan-400 transition-colors duration-300 font-medium cursor-pointer"
           >
             {translations[lang].nav_about}
           </button>
           <button
             onClick={() => scrollToSection('tech')}
-            className="hover:text-cyan-400 transition-colors duration-300 font-medium"
+            className="hover:text-cyan-400 transition-colors duration-300 font-medium cursor-pointer"
           >
             {translations[lang].nav_tech}
           </button>
           <button
             onClick={() => scrollToSection('projects')}
-            className="hover:text-cyan-400 transition-colors duration-300 font-medium"
+            className="hover:text-cyan-400 transition-colors duration-300 font-medium cursor-pointer"
           >
             {translations[lang].nav_projects}
           </button>
@@ -303,12 +306,12 @@ export default function PersonalWebsite() {
             <button
               type="button"
               onClick={() => setLang('tr')}
-              className={`px-3 py-2 text-sm ${lang === 'tr' ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10'}`}
+              className={`px-3 py-2 text-sm cursor-pointer ${lang === 'tr' ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10'}`}
             >TR</button>
             <button
               type="button"
               onClick={() => setLang('en')}
-              className={`px-3 py-2 text-sm ${lang === 'en' ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10'}`}
+              className={`px-3 py-2 text-sm cursor-pointer ${lang === 'en' ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10'}`}
             >EN</button>
           </div>
           <a 
@@ -336,19 +339,19 @@ export default function PersonalWebsite() {
           <div className="relative flex flex-col items-center justify-center h-full space-y-8 text-center px-8">
             <button
               onClick={() => scrollToSection('about')}
-              className="text-2xl font-medium hover:text-cyan-400 transition-colors duration-300"
+              className="text-2xl font-medium hover:text-cyan-400 transition-colors duration-300 cursor-pointer"
             >
               {translations[lang].nav_about}
             </button>
             <button
               onClick={() => scrollToSection('tech')}
-              className="text-2xl font-medium hover:text-cyan-400 transition-colors duration-300"
+              className="text-2xl font-medium hover:text-cyan-400 transition-colors duration-300 cursor-pointer"
             >
               {translations[lang].nav_tech}
             </button>
             <button
               onClick={() => scrollToSection('projects')}
-              className="text-2xl font-medium hover:text-cyan-400 transition-colors duration-300"
+              className="text-2xl font-medium hover:text-cyan-400 transition-colors duration-300 cursor-pointer"
             >
               {translations[lang].nav_projects}
             </button>
@@ -356,12 +359,12 @@ export default function PersonalWebsite() {
               <button
                 type="button"
                 onClick={() => setLang('tr')}
-                className={`px-4 py-2 text-lg ${lang === 'tr' ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10'}`}
+                className={`px-4 py-2 text-lg cursor-pointer ${lang === 'tr' ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10'}`}
               >TR</button>
               <button
                 type="button"
                 onClick={() => setLang('en')}
-                className={`px-4 py-2 text-lg ${lang === 'en' ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10'}`}
+                className={`px-4 py-2 text-lg cursor-pointer ${lang === 'en' ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/10'}`}
               >EN</button>
             </div>
             <a 
