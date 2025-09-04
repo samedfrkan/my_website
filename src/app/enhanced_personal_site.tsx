@@ -185,23 +185,39 @@ export default function PersonalWebsite() {
     setMobileMenuOpen(false);
   };
 
-  const technologies = [
-    { name: "Python", category: "Programming", color: "from-blue-500 to-blue-600", icon: <Code size={20} /> },
-    { name: "C/C++", category: "Programming", color: "from-yellow-400 to-yellow-500", icon: <Code size={20} /> },
-    { name: "React", category: "Frontend", color: "from-cyan-400 to-cyan-500", icon: <Globe size={20} /> },
-    { name: "Node.js", category: "Backend", color: "from-green-500 to-green-600", icon: <Database size={20} /> },
-    { name: "Machine Learning", category: "AI/ML", color: "from-purple-500 to-purple-600", icon: <Brain size={20} /> },
-    { name: "Deep Learning", category: "AI/ML", color: "from-indigo-500 to-indigo-600", icon: <Target size={20} /> },
-    { name: "MongoDB", category: "Database", color: "from-emerald-500 to-emerald-600", icon: <Database size={20} /> },
-    { name: "MSSQL", category: "Database", color: "from-blue-600 to-blue-700", icon: <Database size={20} /> },
-    { name: "Docker", category: "DevOps", color: "from-sky-500 to-sky-600", icon: <Layers size={20} /> },
-    { name: "Git", category: "Version Control", color: "from-orange-500 to-orange-600", icon: <Github size={20} /> },
-    { name: "Tailwind CSS", category: "Frontend", color: "from-teal-400 to-teal-500", icon: <Sparkles size={20} /> },
-    { name: "TensorFlow", category: "AI/ML", color: "from-amber-500 to-amber-600", icon: <Brain size={20} /> },
-    { name: "OpenCV", category: "AI/ML", color: "from-red-500 to-red-600", icon: <Target size={20} /> },
-    { name: "Pandas", category: "Data Science", color: "from-violet-500 to-violet-600", icon: <Zap size={20} /> },
-    { name: "Scikit-learn", category: "Data Science", color: "from-pink-500 to-pink-600", icon: <Brain size={20} /> }
-  ];
+  const technologies = {
+    Programming: [
+      { name: "Python", color: "from-blue-500 to-blue-600", icon: <Code size={20} /> },
+      { name: "C/C++", color: "from-yellow-400 to-yellow-500", icon: <Code size={20} /> },
+      { name: "C#" , color: "from-yellow-400 to-green-500", icon: <Code size={20} /> }
+
+    ],
+    Web: [
+      { name: "React", color: "from-cyan-400 to-cyan-500", icon: <Globe size={20} /> },
+      { name: "Node.js", color: "from-green-500 to-green-600", icon: <Database size={20} /> },
+      { name: "Tailwind CSS", color: "from-teal-400 to-teal-500", icon: <Sparkles size={20} /> }
+    ],
+    AI: [
+      { name: "Machine Learning", color: "from-purple-500 to-purple-600", icon: <Brain size={20} /> },
+      { name: "Deep Learning", color: "from-indigo-500 to-indigo-600", icon: <Target size={20} /> },
+      { name: "TensorFlow", color: "from-amber-500 to-amber-600", icon: <Brain size={20} /> },
+      { name: "OpenCV", color: "from-red-500 to-red-600", icon: <Target size={20} /> },
+      { name: "Pandas", color: "from-violet-500 to-violet-600", icon: <Zap size={20} /> },
+      { name: "Scikit-learn", color: "from-pink-500 to-pink-600", icon: <Brain size={20} /> }
+    ],
+    "Version Control": [
+      { name: "Git", color: "from-orange-500 to-orange-600", icon: <Github size={20} /> },
+      { name: "GitHub", color: "from-gray-600 to-gray-700", icon: <Github size={20} /> },
+    ],
+    "DevOps & Containers": [
+      { name: "Docker", color: "from-sky-500 to-sky-600", icon: <Layers size={20} /> },
+      { name: "AWS", color: "from-orange-500 to-orange-600", icon: <Layers size={20} /> }
+    ],
+    "Database": [
+      { name: "MongoDB", color: "from-emerald-500 to-emerald-600", icon: <Database size={20} /> },
+      { name: "MSSQL", color: "from-blue-600 to-blue-700", icon: <Database size={20} /> },
+    ]
+  };
 
   const projects: Project[] = [
     {
@@ -424,31 +440,79 @@ export default function PersonalWebsite() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
-            {technologies.map((tech, i) => (
-              <div
-                key={i}
-                onMouseEnter={() => setHoveredTech(i)}
-                onMouseLeave={() => setHoveredTech(null)}
-                className={`group relative p-4 sm:p-6 backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl hover:border-white/20 transition-all duration-500 cursor-pointer transform hover:scale-105 hover:-translate-y-2 ${
-                  hoveredTech === i ? 'shadow-2xl' : 'hover:shadow-xl'
-                }`}
-              >
-                <div className={`absolute inset-0 bg-gradient-to-r ${tech.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}></div>
-                
-                <div className="relative z-10 text-center">
-                  <div className={`inline-flex p-2 sm:p-3 rounded-xl bg-gradient-to-r ${tech.color} text-white mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    {tech.icon}
-                  </div>
-                  
-                  <span className="block text-xs font-semibold text-cyan-400 mb-1 sm:mb-2 uppercase tracking-wider">
-                    {tech.category}
-                  </span>
-                  
-                  <p className="text-sm sm:text-base lg:text-lg font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-300">
-                    {tech.name}
-                  </p>
+          <div className="space-y-12">
+            {Object.entries(technologies).map(([category, techs], categoryIndex) => (
+              <div key={category} className="space-y-6">
+                <div className="text-center">
+                  <h3 className="text-2xl sm:text-3xl font-bold mb-2">
+                    <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                      {category}
+                    </span>
+                  </h3>
+                  <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto rounded-full"></div>
                 </div>
+                
+                {/* For categories with 5 or fewer items, use single row layout */}
+                {techs.length <= 5 ? (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+                    {techs.map((tech, techIndex) => {
+                      const globalIndex = categoryIndex * 10 + techIndex;
+                      return (
+                        <div
+                          key={techIndex}
+                          onMouseEnter={() => setHoveredTech(globalIndex)}
+                          onMouseLeave={() => setHoveredTech(null)}
+                          className={`group relative p-4 sm:p-6 backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl hover:border-white/20 transition-all duration-500 cursor-pointer transform hover:scale-105 hover:-translate-y-2 ${
+                            hoveredTech === globalIndex ? 'shadow-2xl' : 'hover:shadow-xl'
+                          }`}
+                        >
+                          <div className={`absolute inset-0 bg-gradient-to-r ${tech.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}></div>
+                          
+                          <div className="relative z-10 text-center">
+                            <div className={`inline-flex p-2 sm:p-3 rounded-xl bg-gradient-to-r ${tech.color} text-white mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                              {tech.icon}
+                            </div>
+                            
+                            <p className="text-sm sm:text-base lg:text-lg font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-300">
+                              {tech.name}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  /* For categories with more than 5 items, use multi-row layout with better spacing */
+                  <div className="space-y-8">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+                      {techs.map((tech, techIndex) => {
+                        const globalIndex = categoryIndex * 10 + techIndex;
+                        return (
+                          <div
+                            key={techIndex}
+                            onMouseEnter={() => setHoveredTech(globalIndex)}
+                            onMouseLeave={() => setHoveredTech(null)}
+                            className={`group relative p-4 sm:p-6 backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl hover:border-white/20 transition-all duration-500 cursor-pointer transform hover:scale-105 hover:-translate-y-2 ${
+                              hoveredTech === globalIndex ? 'shadow-2xl' : 'hover:shadow-xl'
+                            }`}
+                          >
+                            <div className={`absolute inset-0 bg-gradient-to-r ${tech.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}></div>
+                            
+                            <div className="relative z-10 text-center">
+                              <div className={`inline-flex p-2 sm:p-3 rounded-xl bg-gradient-to-r ${tech.color} text-white mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                                {tech.icon}
+                              </div>
+                              
+                              <p className="text-sm sm:text-base lg:text-lg font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-300">
+                                {tech.name}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
